@@ -31,7 +31,7 @@ export default {
       sp.post('/api/system/login', param).then(resp => {
         if (resp.result) {
           saveAuth(this.$store, resp);
-          this.$router.push({ name: 'index' });
+          this.$router.push({ name: 'admin' });
           this.$message.success(resp.message);
         } else {
           this.$message.error(resp.message);
@@ -45,7 +45,7 @@ export default {
       sp.post(`/api/auth_user/bind?type=1&userid=${id}&code=${code}`)
         .then(() => {
           this.$message.success('绑定成功！');
-          this.$router.push({ name: 'index' });
+          this.$router.push({ name: 'admin' });
         })
         .catch(err => {
           this.$message.error(err);

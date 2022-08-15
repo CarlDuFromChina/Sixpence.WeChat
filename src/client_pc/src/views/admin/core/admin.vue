@@ -125,7 +125,7 @@ export default {
     logout() {
       this.$message.success('退出成功');
       clearAuth(this.$store);
-      this.$router.push({ name: 'index' });
+      this.$router.push({ name: 'login' });
     },
     onOpenChange(openKeys) {
       const latestOpenKey = openKeys.find(key => this.openKeys.indexOf(key) === -1);
