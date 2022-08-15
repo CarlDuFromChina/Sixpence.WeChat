@@ -6,18 +6,17 @@ EXPOSE 5000
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["Sixpence.Core/Sixpence.Core.csproj", "Sixpence.Core/"]
 COPY ["Sixpence.WeChat/Sixpence.WeChat.csproj", "Sixpence.WeChat/"]
+COPY ["Sixpence.Core/Sixpence.Core.csproj", "Sixpence.Core/"]
 RUN dotnet restore "Sixpence.WeChat/Sixpence.WeChat.csproj"
 COPY . .
-WORKDIR "/src"
+WORKDIR "/src/Sixpence.WeChat"
 RUN dotnet build "Sixpence.WeChat.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Sixpence.WeChat.csproj" -c Release -o /app/publish
 
 FROM base AS final
-ENV ASPNETCORE_URLS=http://+:5000 DOTNET_RUNNING_IN_CONTAINER=true
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Sixpence.WeChat.dll", "--server.urls","http://*:5000"]
+ENTRYPOINT ["dotnet", "Sixpence.WeChat.dll"]
