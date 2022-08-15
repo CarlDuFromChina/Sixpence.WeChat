@@ -1,0 +1,51 @@
+version: '2'
+services:
+  wechat-html-pc:
+    container_name: "wechat-html-pc"
+    image: carldu/wechat-html-pc:latest
+    links:
+      - wechat-server
+    ports:
+      - "8002:80"
+    volumes:
+      - /docker_data/wechat/pc/nginx.conf:/etc/nginx/nginx.conf
+      - /docker_data/wechat/pc/config.json:/usr/share/nginx/html/static/config.json
+    networks:
+      - wechat-network
+
+  wechat-db:
+    image: postgres:12
+    container_name: "wechat-db"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    restart: always
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_DB: wechat
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123123
+    volumes:
+      - /docker_data/wechat/pg_data:/var/lib/postgresql/data
+    networks:
+      - wechat-network
+
+  wechat-server:
+    container_name: "wechat-server"
+    image: carldu/wechat-server:latest
+    ports:
+      - "5001:5000"
+    links:
+      - wechat-db
+    volumes:
+      - /docker_data/wechat/server/appsettings.json:/app/appsettings.json
+      - /docker_data/wechat/server/logs:/app/log
+      - /docker_data/wechat/server/storage:/app/storage
+    networks:
+      - wechat-network
+
+networks:
+  wechat-network:
+    driver: bridge
