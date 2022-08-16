@@ -72,10 +72,7 @@ namespace Sixpence.Core
             services.AddHttpContextAccessor();
 
             // 添加依赖注入服务
-            services.AddServiceContainer(options =>
-            {
-                options.Assembly.Add("Sixpence.*.dll");
-            });
+            services.AddServiceContainer();
 
             // 添加Jwt认证服务
             services.AddJwt();

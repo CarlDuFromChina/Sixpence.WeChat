@@ -17,9 +17,9 @@ namespace Sixpence.WeChat.WeChatMenu
         }
 
         [HttpGet]
-        public WeChatMenuModel GetMenu()
+        public WeChatMenuModel GetMenus()
         {
-            return WeChatMenuService.GetMenu();
+            return WeChatMenuService.GetMenus();
         }
 
         [HttpDelete]

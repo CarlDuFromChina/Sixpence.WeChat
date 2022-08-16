@@ -1,9 +1,13 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Sixpence.Core.Pixabay;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
+using System.Xml.Linq;
 
 namespace Sixpence.WeChat.WeChatMenu
 {
@@ -22,9 +26,9 @@ namespace Sixpence.WeChat.WeChatMenu
         /// 查询菜单
         /// </summary>
         /// <returns></returns>
-        public static WeChatMenuModel GetMenu()
+        public static WeChatMenuModel GetMenus()
         {
-            var resp = WeChatApi.GetMenu();
+            var resp = WeChatApi.GetMenus();
             return JsonConvert.DeserializeObject<WeChatMenuModel>(resp);
         }
 

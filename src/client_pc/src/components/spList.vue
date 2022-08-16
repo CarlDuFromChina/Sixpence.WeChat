@@ -55,8 +55,8 @@
     <!-- 表格 -->
 
     <!-- 编辑页 -->
-    <a-modal v-model="editVisible" :title="editTitle" @ok="save" width="60%" okText="确认" cancelText="取消">
-      <slot name="edit">
+    <slot name="edit">
+      <a-modal v-model="editVisible" :title="editTitle" @ok="save" width="60%" okText="确认" cancelText="取消">
         <component
           ref="edit"
           v-if="editVisible"
@@ -65,8 +65,8 @@
           @close="editVisible = false"
           @load-data="loadData"
         ></component>
-      </slot>
-    </a-modal>
+      </a-modal>
+    </slot>
     <!-- 编辑页 -->
     <slot />
   </div>
@@ -308,6 +308,7 @@ export default {
     },
     // 编辑保存
     save() {
+      debugger;
       if (this.$refs.edit) {
         this.$refs.edit.saveData();
       } else {

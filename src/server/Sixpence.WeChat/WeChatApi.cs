@@ -251,7 +251,7 @@ namespace Sixpence.WeChat
         /// 获取菜单
         /// </summary>
         /// <returns></returns>
-        public static string GetMenu()
+        public static string GetMenus()
         {
             var resp = HttpUtil.Get(string.Format(WeChatApiConfig.GetValue("GetMenuApi"), WeChatService.AccessToken));
             CheckWeChatErrorResponse(JObject.Parse(resp), "获取微信菜单失败");
