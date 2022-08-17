@@ -8,14 +8,14 @@
       </a-col>
       <a-col :span="12">
         <a-form-model-item label="菜单类型">
-          <a-select v-model="data.type" placeholder="请选择上级菜单">
+          <a-select v-model="data.type" placeholder="请选择菜单类型" allowClear>
             <a-select-option v-for="(item, index) in menus" :key="index" :value="item.value">{{ item.name }}</a-select-option>
           </a-select>
         </a-form-model-item>
       </a-col>
     </a-row>
     <a-row :gutter="24">
-      <a-col :span="12" v-show="showKey(data.type)">
+      <a-col :span="12">
         <a-form-model-item label="Key" :required="data.type === 'click'">
           <a-input v-model="data.key" placeholder="菜单 KEY 值，用于消息接口推送"></a-input>
         </a-form-model-item>
@@ -42,8 +42,9 @@
       </a-col>
     </a-row>
     <a-row :gutter="24">
-      <a-col :span="12">
-        <a-button type="primary" v-show="pageState === 'create'" @click="saveData">插入</a-button>
+      <a-col :span="24">
+        <a-button type="primary" v-show="pageState === 'create'" @click="saveData" :style="{'margin-right': '6px'}">插入</a-button>
+        <a-button @click="clear">清空</a-button>
       </a-col>
     </a-row>
   </a-form-model>
@@ -82,9 +83,12 @@ export default {
         if (resp) {
           this.$emit('save', this.pageState, this.data);
           this.$message.success(this.pageState === 'create' ? '添加成功' : '更新成功');
-          this.pageState = 'edit';
+          this.clear();
         }
       })
+    },
+    clear() {
+      this.$emit('clear');
     },
     handleDisplayUrlPlaceHolder(type) {
       switch (type) {
@@ -95,9 +99,6 @@ export default {
         default:
           return '';
       }
-    },
-    showKey(type) {
-      return ['click', 'scancode_push', 'scancode_waitmsg', 'pic_sysphoto', 'pic_photo_or_album', 'pic_weixin', 'location_select'].findIndex(e => e === type) !== -1;
     },
     showUrl(type) {
       return ['view', 'miniprogram'].findIndex(e => e === type) !== -1;

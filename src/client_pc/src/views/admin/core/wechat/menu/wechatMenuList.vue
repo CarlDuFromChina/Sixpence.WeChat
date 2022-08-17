@@ -10,38 +10,54 @@
           <a-tooltip title="发布">
             <a-button :icon="'check'" @click="publish()" style="margin-right: 10px"></a-button>
           </a-tooltip>
-          <a-tooltip title="创建">
-            <a-button :icon="'plus'" @click="create()" style="margin-right: 10px"></a-button>
-          </a-tooltip>
-          <a-tooltip title="删除">
-            <a-button :icon="'delete'" @click="remove()" style="margin-right: 10px"></a-button>
-          </a-tooltip>
         </div>
       </div>
     </sp-header>
-    <a-row :gutter="24">
-      <a-col :span="6">
-        <a-tree
-          :style="{ 'padding': '0 12px'}"
-          draggable
-          show-line
-          :replaceFields="{title: 'name'}"
-          :tree-data="tableData"
-          :auto-expand-parent="true"
-          :default-expand-all="true"
-          @drop="onDrop"
-          @select="onSelect"
-        />
-      </a-col>
-      <a-col :span="18">
-        <editComponent ref="edit" :data="selectedRow" @save="save" :style="{ 'padding': '0 12px'}"></editComponent>
-      </a-col>
-    </a-row>
+    <div :style="{margin: '10px'}">
+      <a-row :gutter="24">
+        <a-col :span="6">
+          <a-row>
+            <a-tooltip title="创建新菜单">
+              <a-button :icon="'plus'" @click="create()" size="small"></a-button>
+            </a-tooltip>
+          </a-row>
+          <a-row>
+            <a-tree
+              draggable
+              show-line
+              :expanded-keys="expandedKeys"
+              :replaceFields="{ title: 'name' }"
+              :tree-data="tableData"
+              :auto-expand-parent="true"
+              :default-expand-all="true"
+              @drop="onDrop"
+            >
+              <template #title="{ key: treeKey, name }">
+                <a-dropdown :trigger="['contextmenu']">
+                  <span>{{ name }}</span>
+                  <template #overlay>
+                    <a-menu @click="({ key: menuKey }) => onContextMenuClick(treeKey, menuKey)">
+                      <a-menu-item key="add">新增子菜单</a-menu-item>
+                      <a-menu-item key="edit">编辑</a-menu-item>
+                      <a-menu-item key="delete">删除</a-menu-item>
+                    </a-menu>
+                  </template>
+                </a-dropdown>
+              </template>
+            </a-tree>
+          </a-row>
+        </a-col>
+        <a-col :span="18">
+          <editComponent ref="edit" :data="selectedRow" @save="save" @clear="clear"></editComponent>
+        </a-col>
+      </a-row>
+    </div>
   </div>
 </template>
 
 <script>
 import editComponent from './wechatMenuEdit.vue';
+import { uuid } from '@sixpence/web-core'
 
 export default {
   name: 'sysMenuList',
@@ -49,35 +65,43 @@ export default {
   data() {
     return {
       controllerName: 'wechat_menu',
+      expandedKeys: [],
       selectedRow: {},
-      tableData: [],
+      tableData: []
     };
   },
   beforeCreate() {
     sp.get('api/wechat_menu').then(resp => {
       var buttons = resp.selfmenu_info.button;
-      var handleChildren = (buttons) => {
-        buttons.forEach((e) => {
+      var handleChildren = buttons => {
+        buttons.forEach(e => {
           if (e.sub_button) {
             e.children = e.sub_button.list;
             handleChildren(e.children);
           }
+          if (sp.isNullOrEmpty(e.key)) {
+            e.key = uuid.generate()
+          }
         });
       };
       handleChildren(buttons);
+      buttons.forEach(e => {
+        if (!sp.isNullOrEmpty(e.children)) {
+          this.expandedKeys.push(e.key);
+        }
+      })
       this.tableData = buttons;
     });
   },
   methods: {
     onDrop(info) {
-      console.log(info);
-      const dropKey = info.node.title;
-      const dragKey = info.dragNode.title;
+      const dropKey = info.node.eventKey;
+      const dragKey = info.dragNode.eventKey;
       const dropPos = info.node.pos.split('-');
       const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1]);
       const loop = (data, key, callback) => {
         data.forEach((item, index, arr) => {
-          if (item.name === key) {
+          if (item.key === key) {
             return callback(item, index, arr);
           }
           if (item.children) {
@@ -125,27 +149,61 @@ export default {
       }
       this.tableData = data;
     },
-    onClose() {
+    clear() {
       this.selectedRow = {};
     },
-    onSelect(selectedKeys, info) {
-      var title = info.node.title;
-      this.selectedRow = this.findItem(title);
-      this.$refs.edit.pageState = 'edit';
+    onContextMenuClick(treeKey, menuKey) {
+      switch (menuKey) {
+        case 'delete': {
+          var loop = (key, data) => {
+            var i = data.findIndex(e => e.key === key);
+            if (i !== -1) {
+              data.splice(i, 1);
+              this.$forceUpdate();
+            } else {
+              data.forEach(e => {
+                if (e.children && e.children.length > 0) {
+                  loop(key, e.children);
+                }
+              });
+            }
+          };
+          loop(treeKey, this.tableData);
+          break;
+        }
+        case 'edit': {
+          this.selectedRow = this.findItem(treeKey);
+          this.$refs.edit.pageState = 'edit';
+          break;
+        }
+        case 'add': {
+          this.selectedRow = { name: '子菜单', type: 'text', key: uuid.generate() };
+          this.$refs.edit.pageState = 'create';
+          var parent = this.findItem(treeKey);
+          if (parent.children) {
+            parent.children.push(this.selectedRow);
+          } else {
+            parent.children = [this.selectedRow];
+          }
+          break;
+        }
+        default:
+          break;
+      }
     },
-    findItem(title) {
+    findItem(key) {
       var item = {};
-      var loop = (data, name) => {
+      var loop = (data, key) => {
         data.forEach(e => {
-          if (e.name === name) {
+          if (e.key === key) {
             item = e;
           }
           if (e.children && e.children.length > 0) {
-            loop(e.children, name);
+            loop(e.children, key);
           }
-        })
-      }
-      loop(this.tableData, title);
+        });
+      };
+      loop(this.tableData, key);
       return item;
     },
     save(type, data) {
@@ -157,25 +215,6 @@ export default {
       this.selectedRow = {};
       this.$refs.edit.pageState = 'create';
     },
-    remove() {
-      if (sp.isNullOrEmpty(this.selectionIds)) {
-        this.$message.warning('请选择一项，再进行删除');
-      } else {
-        var removeItem = (name, data) => {
-          var i = data.findIndex(e => e.name === name);
-          if (i !== -1) {
-            data.splice(i, 1);
-          } else {
-            data.forEach(e => {
-              if (e.children && e.children.length > 0) {
-                removeItem(name, e.children);
-              }
-            });
-          }
-        };
-        this.selectionIds.forEach(name => removeItem(name, this.tableData));
-      }
-    },
     publish() {
       this.$confirm({
         title: '提示',
@@ -183,6 +222,17 @@ export default {
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
+          var loop = data => {
+            data.forEach(item => {
+              if (item.children) {
+                if (!item.sub_button) {
+                  item.sub_button = { list: item.children };
+                }
+                loop(item.sub_button.list);
+              }
+            });
+          };
+          loop(this.tableData);
           sp.post('api/wechat_menu', { button: this.tableData }).then(() => {
             this.$message.success('发布成功');
           });
