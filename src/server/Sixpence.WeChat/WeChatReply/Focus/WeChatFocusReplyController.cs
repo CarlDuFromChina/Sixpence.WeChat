@@ -1,33 +1,23 @@
-﻿using Sixpence.Web.WebApi;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Sixpence.Web.WebApi;
 
 namespace Sixpence.WeChat.WeChatReply.Focus
 {
-    public class WechatFocusReplyController : EntityBaseController<wechat_focus_reply, WeChatFocusReplyService>
+    public class WechatFocusReplyController : BaseApiController
     {
-        /// <summary>
-        /// 激活
-        /// </summary>
-        /// <param name="id"></param>
-        [HttpGet("activate")]
-        public void Activate(string id)
+        [HttpGet]
+        public string GetReplyMessage()
         {
-            new WeChatFocusReplyService().Activate(id);
+            return new WeChatFocusReplyService().GetReplyMessage();
         }
 
-        /// <summary>
-        /// 停用
-        /// </summary>
-        /// <param name="id"></param>
-        [HttpGet("deactivate")]
-        public void Deactivate(string id)
+        [HttpPut]
+        public void UpdateReplyMessage(dynamic dto)
         {
-            new WeChatFocusReplyService().Deactivate(id);
+            string text = dto?.text;
+            new WeChatFocusReplyService().SaveReplyMessage(text);
         }
     }
 }
+

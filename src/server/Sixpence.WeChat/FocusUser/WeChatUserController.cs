@@ -13,7 +13,7 @@ namespace Sixpence.WeChat.FocusUser
         [HttpGet("focus_user")]
         public FocusUserListModel GetFocusUserList()
         {
-            return new FocusUserService().GetFocusUserList();
+            return new WeChatUserService().GetFocusUserList();
         }
     }
 }

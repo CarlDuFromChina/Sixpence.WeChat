@@ -17,30 +17,21 @@ export default {
   name: 'focusReply',
   data() {
     return {
-      data: {},
       content: '',
       controllerName: 'wechat_focus_reply'
     };
   },
-  created() {
-    this.getData().then(() => {
-      this.content = this.data.content;
-    });
+  async created() {
+    await this.getData();
   },
   methods: {
     async getData() {
-      return sp.get(`api/${this.controllerName}`).then(resp => (this.data = resp || {}));
+      this.content = await sp.get(`api/${this.controllerName}`);
     },
     async saveData() {
-      const operationName = sp.isNullOrEmpty(this.data.id) ? 'CreateData' : 'UpdateData';
       const url = `api/${this.controllerName}`;
-      this.data.content = this.$refs.editor.editor.txt.text();
       try {
-        if (operationName === 'CreateData') {
-          await sp.post(url, this.data);
-        } else {
-          await sp.put(url, this.data);
-        }
+        await sp.put(url, { text: this.$refs.editor.editor.txt.text() });
         this.$message.success('保存成功');
       } catch (error) {
         this.$message.error('保存失败');

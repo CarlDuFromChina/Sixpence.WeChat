@@ -34,7 +34,7 @@ namespace Sixpence.WeChat.FocusUser
         /// <summary>
         /// 用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息
         /// </summary>
-        public string subscribe { get; set; }
+        public int? subscribe { get; set; }
 
         /// <summary>
         /// 用户的标识，对当前公众号唯一

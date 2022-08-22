@@ -308,7 +308,6 @@ export default {
     },
     // 编辑保存
     save() {
-      debugger;
       if (this.$refs.edit) {
         this.$refs.edit.saveData();
       } else {

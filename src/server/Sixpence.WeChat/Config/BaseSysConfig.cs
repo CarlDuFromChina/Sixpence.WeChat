@@ -1,6 +1,8 @@
 ﻿using System;
+using Newtonsoft.Json;
 using Sixpence.ORM.Entity;
 using Sixpence.ORM.EntityManager;
+using Sixpence.Web.Module.SysConfig;
 
 namespace Sixpence.WeChat
 {
@@ -15,7 +17,8 @@ namespace Sixpence.WeChat
             {
                 code = EntityCommon.UpperChartToLowerUnderLine(typeof(T).Name.Replace("Config", ""))
             };
-            Config = em.DbClient.QueryFirst<T>(sql, param);
+            var result = em.DbClient.QueryFirst<sys_config>(sql, param);
+            Config = JsonConvert.DeserializeObject<T>(result.value);
         }
     }
 }

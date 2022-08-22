@@ -58,7 +58,7 @@ export default {
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          sp.get(`api/${this.controllerName}/run?name=${row.name}`)
+          sp.post(`api/${this.controllerName}/run?name=${row.name}`)
             .then(() => {
               this.$refs.list.loadData();
               this.$message.success('执行成功');

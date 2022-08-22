@@ -6,40 +6,35 @@ using System;
 using System.Collections.Generic;
 using Sixpence.Common.Logging;
 using Sixpence.ORM.EntityManager;
+using Sixpence.Web.Module.SysConfig;
+using Sixpence.WeChat.FocusUser;
 
 namespace Sixpence.WeChat.WeChatReply.Focus
 {
-    public class WeChatFocusReplyService : EntityService<wechat_focus_reply>
+    public class WeChatFocusReplyService
     {
-        #region 构造函数
-        public WeChatFocusReplyService() : base() { }
-        public WeChatFocusReplyService(IEntityManager manager) : base(manager) { }
-        #endregion
+        private const string FOCUS_PARAMETER_VALUE = "focus_reply";
+        private IEntityManager Manager { get; set; }
 
-        private ILog logger = LoggerFactory.GetLogger("wechat");
-
-        public void Activate(string id)
+        public WeChatFocusReplyService()
         {
-            var data = GetData(id);
-            data.@checked = true;
-            UpdateData(data);
+            Manager = EntityManagerFactory.GetManager();
         }
 
-        public void Deactivate(string id)
+        public void SaveReplyMessage(string text)
         {
-            var data = GetData(id);
-            data.@checked = false;
-            UpdateData(data);
+            var sql = "update sys_config set value = @value where code = @code";
+            var param = new
+            {
+                value = text,
+                code = FOCUS_PARAMETER_VALUE
+            };
+            Manager.Execute(sql, param);
         }
 
-        public wechat_focus_reply GetData()
+        public string GetReplyMessage()
         {
-            var config = OfficialAccountConfig.Config;
-            var sql = @"
-select * from wechat_focus_reply where wechat = @wechat
-";
-            var data = Manager.QueryFirst<wechat_focus_reply>(sql, new Dictionary<string, object>() { { "@wechat", config.Appid } });
-            return data;
+            return new SysConfigService(Manager).GetValue(FOCUS_PARAMETER_VALUE)?.ToString();
         }
 
         /// <summary>
@@ -51,8 +46,8 @@ select * from wechat_focus_reply where wechat = @wechat
         {
             if (!string.IsNullOrEmpty(message.EventName) && message.EventName.Trim() == "subscribe")
             {
-                var reply = GetData()?.content ?? "感谢您的关注！";
-                logger.Info($"收到来自{message.FromUserName}的关注");
+                var reply = this.GetReplyMessage();
+                new WeChatUserService().SaveData(message.FromUserName);
                 return string.Format(WeChatMessageTemplate.Text, message.FromUserName, message.ToUserName, DateTime.Now.Ticks, reply);
             }
             return "";
