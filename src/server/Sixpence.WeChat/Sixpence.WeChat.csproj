@@ -16,10 +16,63 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="version\3.0\**" />
+    <Content Remove="version\3.0\**" />
+    <EmbeddedResource Remove="version\3.0\**" />
+    <None Remove="version\3.0\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\Karl\.nuget\packages\sixpence.web\1.0.0\contentFiles\any\netcoreapp3.1\version\3.0\2022062001-sys_role.csv" />
+    <Content Remove="C:\Users\Karl\.nuget\packages\sixpence.web\1.0.0\contentFiles\any\netcoreapp3.1\version\3.0\2022062002-auth_user.csv" />
+    <Content Remove="C:\Users\Karl\.nuget\packages\sixpence.web\1.0.0\contentFiles\any\netcoreapp3.1\version\3.0\2022062003-user_info.csv" />
+    <Content Remove="C:\Users\Karl\.nuget\packages\sixpence.web\1.0.0\contentFiles\any\netcoreapp3.1\version\3.0\2022062004-sys_menu.csv" />
+    <Content Remove="C:\Users\Karl\.nuget\packages\sixpence.web\1.0.0\contentFiles\any\netcoreapp3.1\version\3.0\2022062005-sys_config.csv" />
+    <Content Remove="C:\Users\Karl\.nuget\packages\sixpence.web\1.0.0\contentFiles\any\netcoreapp3.1\version\3.0\2022062006-sys_param.csv" />
+    <Content Remove="C:\Users\Karl\.nuget\packages\sixpence.web\1.0.0\contentFiles\any\netcoreapp3.1\version\3.0\2022062007-sys_paramgroup.csv" />
+    <Content Remove="C:\Users\Karl\.nuget\packages\sixpence.web\1.0.0\contentFiles\any\netcoreapp3.1\version\3.0\2022062008-quartz.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="version\1.0\2022062001-sys_role.csv" />
+    <None Remove="version\1.0\2022062002-auth_user.csv" />
+    <None Remove="version\1.0\2022062003-user_info.csv" />
+    <None Remove="version\1.0\2022062004-sys_menu.csv" />
+    <None Remove="version\1.0\2022062005-sys_config.csv" />
+    <None Remove="version\1.0\2022062006-sys_param.csv" />
+    <None Remove="version\1.0\2022062007-sys_paramgroup.csv" />
+    <None Remove="version\1.0\2022062008-quartz.sql" />
     <None Remove="version\2.2\2021072101-新增链接菜单.sql" />
     <None Remove="version\3.0\" />
     <None Remove="WeChatApi\" />
     <None Remove="Sixpence.Web" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="version\1.0\2022062001-sys_role.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="version\1.0\2022062002-auth_user.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="version\1.0\2022062003-user_info.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="version\1.0\2022062004-sys_menu.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="version\1.0\2022062005-sys_config.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="version\1.0\2022062006-sys_param.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="version\1.0\2022062007-sys_paramgroup.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="version\1.0\2022062008-quartz.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +81,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="version\3.0\" />
     <Folder Include="WeChatApi\" />
   </ItemGroup>
   <ItemGroup>
