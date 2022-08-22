@@ -8,9 +8,9 @@ Description：同步微信素材Job
 #endregion
 
 using System;
-using Sixpence.Core.Auth.UserInfo;
+using Sixpence.Web.Auth.UserInfo;
 using Sixpence.ORM.Entity;
-using Sixpence.Core.Job;
+using Sixpence.Web.Job;
 using Sixpence.WeChat;
 using Sixpence.WeChat.Material;
 using Quartz;

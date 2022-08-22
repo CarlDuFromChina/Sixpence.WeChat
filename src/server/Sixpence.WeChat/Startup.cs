@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sixpence.WeChat
 {
-    public class Startup : Sixpence.Core.Startup
+    public class Startup : Sixpence.Web.Startup
     {
         public Startup(IConfiguration configuration) : base(configuration) { }
 

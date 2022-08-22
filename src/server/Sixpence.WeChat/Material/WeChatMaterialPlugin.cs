@@ -7,9 +7,9 @@ Description：素材Plugin
 ********************************************************/
 #endregion
 
-using Sixpence.Core.Config;
-using Sixpence.Core.Store;
-using Sixpence.Core.Store.SysFile;
+using Sixpence.Web.Config;
+using Sixpence.Web.Store;
+using Sixpence.Web.Store.SysFile;
 using Sixpence.Common.IoC;
 using Sixpence.Common.Utils;
 using Sixpence.ORM.EntityManager;

@@ -1,4 +1,4 @@
-﻿using Sixpence.Core.Config;
+﻿using Sixpence.Web.Config;
 using Sixpence.Common.Config;
 using System;
 using System.Collections.Generic;

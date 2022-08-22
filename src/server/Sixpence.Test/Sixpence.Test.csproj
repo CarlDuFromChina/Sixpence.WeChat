@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sixpence.Core\Sixpence.Core.csproj" />
     <ProjectReference Include="..\Sixpence.WeChat\Sixpence.WeChat.csproj" />
   </ItemGroup>
 

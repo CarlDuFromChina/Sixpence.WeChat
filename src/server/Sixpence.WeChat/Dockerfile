@@ -7,7 +7,6 @@ EXPOSE 5000
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY ["Sixpence.WeChat/Sixpence.WeChat.csproj", "Sixpence.WeChat/"]
-COPY ["Sixpence.Core/Sixpence.Core.csproj", "Sixpence.Core/"]
 RUN dotnet restore "Sixpence.WeChat/Sixpence.WeChat.csproj"
 COPY . .
 WORKDIR "/src/Sixpence.WeChat"

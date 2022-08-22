@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sixpence.WeChat", "Sixpence.WeChat\Sixpence.WeChat.csproj", "{BDB115D2-6E6F-4B95-916A-4CAD83E5EFFA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sixpence.Core", "Sixpence.Core\Sixpence.Core.csproj", "{3C7C623A-6B64-468D-ADCF-01124A0A4884}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sixpence.Test", "Sixpence.Test\Sixpence.Test.csproj", "{AE26548F-E95D-4A86-9F8B-0A28C8F65365}"
 EndProject
 Global

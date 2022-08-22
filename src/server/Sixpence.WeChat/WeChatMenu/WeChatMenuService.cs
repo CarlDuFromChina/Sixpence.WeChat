@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Sixpence.Core.Pixabay;
+using Sixpence.Web.Pixabay;
 using System;
 using System.Collections.Generic;
 using System.Linq;

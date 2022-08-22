@@ -1,5 +1,5 @@
 ﻿using log4net;
-using Sixpence.Core.WebApi;
+using Sixpence.Web.WebApi;
 using Sixpence.ORM.Entity;
 using Sixpence.WeChat.Message;
 using System;

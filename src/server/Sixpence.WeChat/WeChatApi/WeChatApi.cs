@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Sixpence.Core.WebApi;
+using Sixpence.Web.WebApi;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using Sixpence.Core;
+using Sixpence.Web;
 using Sixpence.Common.Utils;
 using Sixpence.Common;
 

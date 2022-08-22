@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
-using Sixpence.Core.WebApi;
+using Sixpence.Web.WebApi;
 using Sixpence.ORM.Entity;
 using System;
 using System.Collections.Generic;
-using Sixpence.Core;
-using Sixpence.Core.Store.SysFile;
+using Sixpence.Web;
+using Sixpence.Web.Store.SysFile;
 using Sixpence.Common.Utils;
-using Sixpence.Core.Config;
-using Sixpence.Core.Store;
-using Sixpence.Core.Auth;
+using Sixpence.Web.Config;
+using Sixpence.Web.Store;
+using Sixpence.Web.Auth;
 using Sixpence.Common;
 
 using Sixpence.Common.IoC;

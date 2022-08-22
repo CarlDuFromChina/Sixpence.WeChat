@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sixpence.Core.Auth;
+using Sixpence.Web.Auth;
 
 using Sixpence.Common.Utils;
 using Sixpence.WeChat.Material;

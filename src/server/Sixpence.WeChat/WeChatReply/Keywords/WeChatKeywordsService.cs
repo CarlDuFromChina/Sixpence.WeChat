@@ -7,7 +7,7 @@ Description：微信关键词回复 Service
 ********************************************************/
 #endregion
 
-using Sixpence.Core.WebApi;
+using Sixpence.Web.WebApi;
 using Sixpence.ORM.Entity;
 using Sixpence.WeChat.Message;
 using Sixpence.WeChat.Message.Text;

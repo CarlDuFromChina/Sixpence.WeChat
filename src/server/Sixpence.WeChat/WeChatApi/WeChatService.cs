@@ -1,4 +1,4 @@
-﻿using Sixpence.Core.WebApi;
+﻿using Sixpence.Web.WebApi;
 using Sixpence.WeChat.Message;
 using Sixpence.WeChat.Message.Text;
 using Sixpence.WeChat.WeChatReply.Focus;
@@ -8,7 +8,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using Sixpence.Common.Utils;
-using Sixpence.Core;
+using Sixpence.Web;
 using Sixpence.Common.Logging;
 using Sixpence.Common;
 

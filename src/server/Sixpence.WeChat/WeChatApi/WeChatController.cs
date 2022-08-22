@@ -1,6 +1,6 @@
-﻿using Sixpence.Core;
-using Sixpence.Core.Extensions;
-using Sixpence.Core.WebApi;
+﻿using Sixpence.Web;
+using Sixpence.Web.Extensions;
+using Sixpence.Web.WebApi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;

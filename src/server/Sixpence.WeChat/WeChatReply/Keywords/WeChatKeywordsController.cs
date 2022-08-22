@@ -7,7 +7,7 @@ Description：微信关键词服务 Controller
 ********************************************************/
 #endregion
 
-using Sixpence.Core.WebApi;
+using Sixpence.Web.WebApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;

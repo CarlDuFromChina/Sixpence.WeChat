@@ -7,8 +7,8 @@ Description：同步微信图文素材Job
 ********************************************************/
 #endregion
 
-using Sixpence.Core.Auth;
-using Sixpence.Core.Job;
+using Sixpence.Web.Auth;
+using Sixpence.Web.Job;
 using Sixpence.WeChat.WeChatNews;
 using Sixpence.WeChat.WeChatNewsMaterial;
 using Quartz;
