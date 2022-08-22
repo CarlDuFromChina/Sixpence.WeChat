@@ -47,7 +47,7 @@ namespace Sixpence.WeChat
 
         static WeChatService()
         {
-            var config = WeChatConfig.Config;
+            var config = OfficialAccountConfig.Config;
             AssertUtil.IsNull(config, "未找到微信公众号配置");
             _appid = config.Appid;
             _token = config.Token;

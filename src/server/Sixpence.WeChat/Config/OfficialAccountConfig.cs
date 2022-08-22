@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Sixpence.WeChat
 {
-    public class WeChatConfig : BaseAppConfig<WeChatConfig>
+    public class OfficialAccountConfig : BaseSysConfig<OfficialAccountConfig>
     {
         public string Token { get; set; }
 

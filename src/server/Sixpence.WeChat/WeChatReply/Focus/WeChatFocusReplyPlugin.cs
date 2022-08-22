@@ -31,7 +31,7 @@ namespace Sixpence.WeChat.WeChatReply.Focus
                     }
                     if (entity.GetAttributeValue("wechat") == null)
                     {
-                        context.Entity["wechat"] = WeChatConfig.Config.Appid;
+                        context.Entity["wechat"] = OfficialAccountConfig.Config.Appid;
                     }
                     break;
                 default:

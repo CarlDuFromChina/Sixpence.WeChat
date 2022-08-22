@@ -34,7 +34,7 @@ namespace Sixpence.WeChat.WeChatReply.Focus
 
         public wechat_focus_reply GetData()
         {
-            var config = WeChatConfig.Config;
+            var config = OfficialAccountConfig.Config;
             var sql = @"
 select * from wechat_focus_reply where wechat = @wechat
 ";
