@@ -85,4 +85,22 @@ namespace Sixpence.WeChat.WeChatMenu
         public string content_url { get; set; }
         public string source_url { get; set; }
     }
+
+    public class WeChatCreateMenuModel
+    {
+        public List<WeChatCreateMenuButtonModel> button { get; set; }
+    }
+
+    public class WeChatCreateMenuButtonModel
+    {
+        public string name { get; set; }
+        public List<WeChatCreateMenuButtonModel> sub_button { get; set; }
+        public string type { get; set; }
+        public string key { get; set; }
+        public string url { get; set; }
+        public string media_id { get; set; }
+        public string appid { get; set; }
+        public string pagepath { get; set; }
+        public string article_id { get; set; }
+    }
 }

@@ -17,7 +17,7 @@ namespace Sixpence.WeChat.WeChatMenu
         /// 创建菜单
         /// </summary>
         /// <param name="menu"></param>
-        public static void CreateMenu(SelfMenuInfo menu)
+        public static void CreateMenu(WeChatCreateMenuModel menu)
         {
             WeChatApi.CreateMenu(JsonConvert.SerializeObject(menu));
         }

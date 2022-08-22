@@ -26,7 +26,7 @@
               draggable
               show-line
               :expanded-keys="expandedKeys"
-              :replaceFields="{ title: 'name' }"
+              :replaceFields="{ title: 'name', children: 'sub_button' }"
               :tree-data="tableData"
               :auto-expand-parent="true"
               :default-expand-all="true"
@@ -48,7 +48,7 @@
           </a-row>
         </a-col>
         <a-col :span="18">
-          <editComponent ref="edit" :data="selectedRow" @save="save" @clear="clear"></editComponent>
+          <editComponent ref="edit" :data="selectedRow" @save="save"></editComponent>
         </a-col>
       </a-row>
     </div>
@@ -72,25 +72,29 @@ export default {
   },
   beforeCreate() {
     sp.get('api/wechat_menu').then(resp => {
-      var buttons = resp.selfmenu_info.button;
-      var handleChildren = buttons => {
-        buttons.forEach(e => {
-          if (e.sub_button) {
-            e.children = e.sub_button.list;
-            handleChildren(e.children);
-          }
-          if (sp.isNullOrEmpty(e.key)) {
-            e.key = uuid.generate()
-          }
-        });
-      };
-      handleChildren(buttons);
-      buttons.forEach(e => {
-        if (!sp.isNullOrEmpty(e.children)) {
-          this.expandedKeys.push(e.key);
+      if (sp.isNullOrEmpty(resp.selfmenu_info)) {
+        return; 
+      }
+
+      // 微信公众号最多二级菜单
+      this.tableData = resp.selfmenu_info.button.map(e => {
+        if (sp.isNullOrEmpty(e.key)) {
+          e.key = uuid.generate();
         }
-      })
-      this.tableData = buttons;
+
+        if (e.sub_button) {
+          e.sub_button = e.sub_button.list;
+          e.sub_button.forEach(item => {
+            if (sp.isNullOrEmpty(item.key)) {
+              item.key = uuid.generate()
+            }
+          });
+          if (!sp.isNullOrEmpty(e.sub_button)) {
+            this.expandedKeys.push(e.key);
+          }
+        }
+        return e;
+      });
     });
   },
   methods: {
@@ -104,8 +108,8 @@ export default {
           if (item.key === key) {
             return callback(item, index, arr);
           }
-          if (item.children) {
-            return loop(item.children, key, callback);
+          if (item.sub_button) {
+            return loop(item.sub_button, key, callback);
           }
         });
       };
@@ -120,19 +124,22 @@ export default {
       if (!info.dropToGap) {
         // Drop on the content
         loop(data, dropKey, item => {
-          item.children = item.children || [];
+          item.sub_button = item.sub_button || [];
           // where to insert 示例添加到尾部，可以是随意位置
-          item.children.push(dragObj);
+          if (this.expandedKeys.findIndex(e => e.key === item.key) === -1) {
+            this.expandedKeys.push(item.key);
+          }
+          item.sub_button.push(dragObj);
         });
       } else if (
-        (info.node.children || []).length > 0 && // Has children
+        (info.node.sub_button || []).length > 0 && // Has children
         info.node.expanded && // Is expanded
         dropPosition === 1 // On the bottom gap
       ) {
         loop(data, dropKey, item => {
-          item.children = item.children || [];
+          item.sub_button = item.sub_button || [];
           // where to insert 示例添加到尾部，可以是随意位置
-          item.children.unshift(dragObj);
+          item.sub_button.unshift(dragObj);
         });
       } else {
         let ar;
@@ -149,9 +156,6 @@ export default {
       }
       this.tableData = data;
     },
-    clear() {
-      this.selectedRow = {};
-    },
     onContextMenuClick(treeKey, menuKey) {
       switch (menuKey) {
         case 'delete': {
@@ -162,28 +166,32 @@ export default {
               this.$forceUpdate();
             } else {
               data.forEach(e => {
-                if (e.children && e.children.length > 0) {
-                  loop(key, e.children);
+                if (e.sub_button && e.sub_button.length > 0) {
+                  loop(key, e.sub_button);
                 }
               });
             }
           };
           loop(treeKey, this.tableData);
+          if (this.selectedRow.key === treeKey) {
+            this.selectedRow = {};
+          }
           break;
         }
         case 'edit': {
           this.selectedRow = this.findItem(treeKey);
-          this.$refs.edit.pageState = 'edit';
           break;
         }
         case 'add': {
-          this.selectedRow = { name: '子菜单', type: 'text', key: uuid.generate() };
-          this.$refs.edit.pageState = 'create';
+          this.selectedRow = { name: '二级菜单', key: uuid.generate() };
           var parent = this.findItem(treeKey);
-          if (parent.children) {
-            parent.children.push(this.selectedRow);
+          if (parent.sub_button) {
+            parent.sub_button.push(this.selectedRow);
           } else {
-            parent.children = [this.selectedRow];
+            parent.sub_button = [this.selectedRow];
+          }
+          if (this.expandedKeys.findIndex(e => e.key === parent.key) === -1) {
+            this.expandedKeys.push(parent.key);
           }
           break;
         }
@@ -198,8 +206,8 @@ export default {
           if (e.key === key) {
             item = e;
           }
-          if (e.children && e.children.length > 0) {
-            loop(e.children, key);
+          if (e.sub_button && e.sub_button.length > 0) {
+            loop(e.sub_button, key);
           }
         });
       };
@@ -208,12 +216,15 @@ export default {
     },
     save(type, data) {
       if (type === 'create') {
+        if (sp.isNullOrEmpty(data.key)) {
+          data.key = uuid.generate();
+        }
         this.tableData = [...this.tableData, data];
       }
     },
     create() {
-      this.selectedRow = {};
-      this.$refs.edit.pageState = 'create';
+      this.selectedRow = { name: '一级菜单', key: uuid.generate() };
+      this.tableData.push(this.selectedRow);
     },
     publish() {
       this.$confirm({
@@ -222,17 +233,6 @@ export default {
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          var loop = data => {
-            data.forEach(item => {
-              if (item.children) {
-                if (!item.sub_button) {
-                  item.sub_button = { list: item.children };
-                }
-                loop(item.sub_button.list);
-              }
-            });
-          };
-          loop(this.tableData);
           sp.post('api/wechat_menu', { button: this.tableData }).then(() => {
             this.$message.success('发布成功');
           });

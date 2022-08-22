@@ -41,12 +41,6 @@
         </a-form-model-item>
       </a-col>
     </a-row>
-    <a-row :gutter="24">
-      <a-col :span="24">
-        <a-button type="primary" v-show="pageState === 'create'" @click="saveData" :style="{'margin-right': '6px'}">插入</a-button>
-        <a-button @click="clear">清空</a-button>
-      </a-col>
-    </a-row>
   </a-form-model>
 </template>
 
@@ -74,21 +68,17 @@ export default {
         { name: '图文消息', value: 'article_id' },
         { name: '发布后的图文消息', value: 'article_view_limited' }, 
       ],
-      pageState: 'create'
     };
   },
   methods: {
     async saveData() {
       this.$refs.form.validate(resp => {
         if (resp) {
-          this.$emit('save', this.pageState, this.data);
-          this.$message.success(this.pageState === 'create' ? '添加成功' : '更新成功');
+          this.$emit('save', this.data);
+          this.$message.success('更新成功');
           this.clear();
         }
       })
-    },
-    clear() {
-      this.$emit('clear');
     },
     handleDisplayUrlPlaceHolder(type) {
       switch (type) {

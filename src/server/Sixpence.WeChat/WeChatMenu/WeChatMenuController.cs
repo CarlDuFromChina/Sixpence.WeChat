@@ -11,7 +11,7 @@ namespace Sixpence.WeChat.WeChatMenu
     public class WechatMenuController : BaseApiController
     {
         [HttpPost]
-        public void CreateMenu(SelfMenuInfo menu)
+        public void CreateMenu(WeChatCreateMenuModel menu)
         {
             WeChatMenuService.CreateMenu(menu);
         }
