@@ -6,6 +6,7 @@ using Sixpence.WeChat.OfficialAccount.Message.Text;
 using Sixpence.WeChat.OfficialAccount.WeChatReply.Focus;
 using Sixpence.WeChat.OfficialAccount.WeChatReply.Keywords;
 using System.Xml;
+using Sixpence.Common.Logging;
 
 namespace Sixpence.WeChat.OfficialAccount
 {
@@ -53,7 +54,7 @@ namespace Sixpence.WeChat.OfficialAccount
         /// </summary>
         public static AccessTokenResponse RefreshToken()
         {
-            var result = WeChatApi.GetAccessToken(_appid, _secret);
+            var result = OfficialAccountApi.GetAccessToken(_appid, _secret);
             var accessToken = new AccessTokenResponse()
             {
                 AccessToken = result.AccessToken,

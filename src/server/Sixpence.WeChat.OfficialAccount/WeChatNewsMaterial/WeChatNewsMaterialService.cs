@@ -38,7 +38,7 @@ namespace Sixpence.WeChat.OfficialAccount.WeChatNewsMaterial
                     id = Guid.NewGuid().ToString(),
                     fileid = fileid
                 };
-                data.media_url = WeChatApi.UploadImg(stream, file.name, file.content_type)?.url;
+                data.media_url = OfficialAccountApi.UploadImg(stream, file.name, file.content_type)?.url;
                 data.local_url = SysFileService.GetDownloadUrl(fileid, false);
                 CreateData(data);
             }

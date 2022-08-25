@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 
-namespace Sixpence.WeChat.OfficialAccount
+namespace Sixpence.WeChat.OfficialAccount.FocusUser
 {
     [Entity("wechat_user", "微信用户")]
     public partial class wechat_user : BaseEntity

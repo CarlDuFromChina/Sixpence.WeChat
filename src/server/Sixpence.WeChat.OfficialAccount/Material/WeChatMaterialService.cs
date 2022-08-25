@@ -1,18 +1,16 @@
 ﻿using Newtonsoft.Json;
-using Sixpence.Web.WebApi;
-using Sixpence.ORM.Entity;
-using System;
-using System.Collections.Generic;
-using Sixpence.Web;
-using Sixpence.Web.Store.SysFile;
+using Sixpence.Common;
+using Sixpence.Common.IoC;
 using Sixpence.Common.Utils;
+using Sixpence.ORM.Entity;
+using Sixpence.ORM.EntityManager;
 using Sixpence.Web.Config;
 using Sixpence.Web.Store;
-using Sixpence.Web.Auth;
-using Sixpence.Common;
-
-using Sixpence.Common.IoC;
-using Sixpence.ORM.EntityManager;
+using Sixpence.Web.Store.SysFile;
+using Sixpence.WeChat.Common.Model;
+using Sixpence.WeChat.OfficialAccount.Model;
+using System;
+using System.Collections.Generic;
 
 namespace Sixpence.WeChat.OfficialAccount.Material
 {
@@ -47,7 +45,7 @@ namespace Sixpence.WeChat.OfficialAccount.Material
         /// <returns></returns>
         public WeChatOtherMaterial GetMaterial(string type, int pageIndex, int pageSize)
         {
-            var result = WeChatApi.BatchGetMaterial(type, pageIndex, pageSize);
+            var result = OfficialAccountApi.BatchGetMaterial(type, pageIndex, pageSize);
             var materialList = JsonConvert.DeserializeObject<WeChatOtherMaterial>(result);
             if (materialList == null || materialList.item == null || materialList.item.Count <= 0)
             {
@@ -86,7 +84,7 @@ namespace Sixpence.WeChat.OfficialAccount.Material
             // 获取文件流
             var config = StoreConfig.Config;
             var stream = ServiceContainer.Resolve<IStoreStrategy>(config?.Type).GetStream(fileId);
-            var media = WeChatApi.AddMaterial(type, stream, file.name, file.content_type);
+            var media = OfficialAccountApi.AddMaterial(type, stream, file.name, file.content_type);
             stream.Dispose();
 
             // 创建素材记录

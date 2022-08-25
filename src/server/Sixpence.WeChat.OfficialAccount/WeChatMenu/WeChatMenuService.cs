@@ -19,7 +19,7 @@ namespace Sixpence.WeChat.OfficialAccount.WeChatMenu
         /// <param name="menu"></param>
         public static void CreateMenu(WeChatCreateMenuModel menu)
         {
-            WeChatApi.CreateMenu(JsonConvert.SerializeObject(menu));
+            OfficialAccountApi.CreateMenu(JsonConvert.SerializeObject(menu));
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Sixpence.WeChat.OfficialAccount.WeChatMenu
         /// <returns></returns>
         public static WeChatMenuModel GetMenus()
         {
-            var resp = WeChatApi.GetMenus();
+            var resp = OfficialAccountApi.GetMenus();
             return JsonConvert.DeserializeObject<WeChatMenuModel>(resp);
         }
 
@@ -37,7 +37,7 @@ namespace Sixpence.WeChat.OfficialAccount.WeChatMenu
         /// </summary>
         public static void DeleteMenu()
         {
-            WeChatApi.DeleteMenu();
+            OfficialAccountApi.DeleteMenu();
         }
     }
 }

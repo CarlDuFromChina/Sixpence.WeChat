@@ -34,44 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="version\1.0\2022062001-sys_role.csv" />
-    <None Remove="version\1.0\2022062002-auth_user.csv" />
-    <None Remove="version\1.0\2022062003-user_info.csv" />
-    <None Remove="version\1.0\2022062004-sys_menu.csv" />
-    <None Remove="version\1.0\2022062005-sys_config.csv" />
-    <None Remove="version\1.0\2022062006-sys_param.csv" />
-    <None Remove="version\1.0\2022062007-sys_paramgroup.csv" />
-    <None Remove="version\1.0\2022062008-quartz.sql" />
     <None Remove="version\2.2\2021072101-新增链接菜单.sql" />
     <None Remove="version\3.0\" />
     <None Remove="Sixpence.Web" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="version\1.0\2022062001-sys_role.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="version\1.0\2022062002-auth_user.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="version\1.0\2022062003-user_info.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="version\1.0\2022062004-sys_menu.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="version\1.0\2022062005-sys_config.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="version\1.0\2022062006-sys_param.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="version\1.0\2022062007-sys_paramgroup.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="version\1.0\2022062008-quartz.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -79,22 +44,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sixpence.WeChat.MiniProgram\Sixpence.WeChat.MiniProgram.csproj" />
+    <ProjectReference Include="..\Sixpence.WeChat.OfficialAccount\Sixpence.WeChat.OfficialAccount.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\Sixpence.MiniProgram\Sixpence.MiniProgram.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\Sixpence.OfficialAccount\Sixpence.OfficialAccount.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\Sixpence.MiniProgram\Sixpence.WeChat.MiniProgram.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\Sixpence.OfficialAccount\Sixpence.WeChat.OfficialAccount.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
+    <Folder Include="version\1.0\" />
   </ItemGroup>
 </Project>

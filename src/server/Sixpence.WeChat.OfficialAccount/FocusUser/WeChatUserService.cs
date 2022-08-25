@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Sixpence.Common;
 
-namespace Sixpence.WeChat.OfficialAccount
+namespace Sixpence.WeChat.OfficialAccount.FocusUser
 {
     public class WeChatUserService : EntityService<wechat_user>
     {
@@ -49,7 +49,7 @@ namespace Sixpence.WeChat.OfficialAccount
         /// <returns></returns>
         public FocusUserListModel GetFocusUserList(string openid = "")
         {
-            var resp = WeChatApi.GetFocusUserList(openid);
+            var resp = OfficialAccountApi.GetFocusUserList(openid);
             var openIds = JsonConvert.DeserializeObject<FocusUserListModel>(resp);
             return openIds;
         }
@@ -61,7 +61,7 @@ namespace Sixpence.WeChat.OfficialAccount
         /// <returns></returns>
         public FocusUserModel GetFocusUser(string openid)
         {
-            var resp = WeChatApi.GetFocusUser(openid);
+            var resp = OfficialAccountApi.GetFocusUser(openid);
             var user = JsonConvert.DeserializeObject<FocusUserModel>(resp);
             return user;
         }
@@ -73,7 +73,7 @@ namespace Sixpence.WeChat.OfficialAccount
         /// <returns></returns>
         public FocusUsersModel GetFocusUsers(string userList)
         {
-            var resp2 = WeChatApi.BatchGetFocusUser(JsonConvert.SerializeObject(userList));
+            var resp2 = OfficialAccountApi.BatchGetFocusUser(JsonConvert.SerializeObject(userList));
             var focusUsers = JsonConvert.DeserializeObject<FocusUsersModel>(resp2);
             return focusUsers;
         }

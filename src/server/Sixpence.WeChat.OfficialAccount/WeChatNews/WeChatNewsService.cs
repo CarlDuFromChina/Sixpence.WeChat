@@ -1,17 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Sixpence.ORM.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sixpence.Web.Auth;
-
-using Sixpence.Common.Utils;
-using Sixpence.WeChat.OfficialAccount.Material;
-using Sixpence.Common;
-using Sixpence.WeChat.OfficialAccount.WeChatNewsMaterial;
 using Sixpence.ORM.EntityManager;
+using Sixpence.WeChat.OfficialAccount.Model;
+using Sixpence.WeChat.OfficialAccount.WeChatNewsMaterial;
+using System.Collections.Generic;
 
 namespace Sixpence.WeChat.OfficialAccount.WeChatNews
 {
@@ -32,7 +24,7 @@ namespace Sixpence.WeChat.OfficialAccount.WeChatNews
             foreach (var item in ids)
             {
                 var data = Manager.QueryFirst<wechat_news>(item);
-                WeChatApi.DeleteMaterial(data.media_id);
+                OfficialAccountApi.DeleteMaterial(data.media_id);
             }
             base.DeleteData(ids);
         }
@@ -58,7 +50,7 @@ namespace Sixpence.WeChat.OfficialAccount.WeChatNews
                     content_source_url = ""
                 }
             };
-            WeChatApi.UpdateNews(JsonConvert.SerializeObject(model));
+            OfficialAccountApi.UpdateNews(JsonConvert.SerializeObject(model));
             base.UpdateData(t);
         }
 
@@ -70,7 +62,7 @@ namespace Sixpence.WeChat.OfficialAccount.WeChatNews
         /// <returns></returns>
         public WeChatNewsResponse GetDataList(int pageIndex, int pageSize)
         {
-            var result = WeChatApi.BatchGetMaterial("news", pageIndex, pageSize);
+            var result = OfficialAccountApi.BatchGetMaterial("news", pageIndex, pageSize);
             var materialList = JsonConvert.DeserializeObject<WeChatNewsResponse>(result);
             return materialList;
         }
@@ -107,7 +99,7 @@ namespace Sixpence.WeChat.OfficialAccount.WeChatNews
                     }
                 }
             };
-            var result = WeChatApi.AddNews(JsonConvert.SerializeObject(postData));
+            var result = OfficialAccountApi.AddNews(JsonConvert.SerializeObject(postData));
             var data = new wechat_news()
             {
                 id = result.media_id,

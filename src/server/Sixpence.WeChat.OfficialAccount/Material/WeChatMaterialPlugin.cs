@@ -51,7 +51,7 @@ namespace Sixpence.WeChat.OfficialAccount.Material
                     }
                     break;
                 case EntityAction.PreDelete:
-                    WeChatApi.DeleteMaterial(entity.GetAttributeValue<string>("media_id"));
+                    OfficialAccountApi.DeleteMaterial(entity.GetAttributeValue<string>("media_id"));
                     context.EntityManager.Delete("sys_file", entity.GetAttributeValue<string>("sys_fileid"));
                     break;
                 default:

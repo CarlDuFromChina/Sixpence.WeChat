@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sixpence.WeChat.OfficialAccount
+namespace Sixpence.WeChat.OfficialAccount.FocusUser
 {
     public class FocusUserListModel
     {

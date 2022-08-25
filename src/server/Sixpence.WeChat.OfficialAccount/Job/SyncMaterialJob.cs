@@ -7,14 +7,13 @@ Description：同步微信素材Job
 ********************************************************/
 #endregion
 
-using System;
-using Sixpence.Web.Auth.UserInfo;
-using Sixpence.ORM.Entity;
-using Sixpence.Web.Job;
-using Sixpence.WeChat;
-using Sixpence.WeChat.OfficialAccount.Material;
 using Quartz;
 using Sixpence.ORM.EntityManager;
+using Sixpence.Web.Auth.UserInfo;
+using Sixpence.Web.Job;
+using Sixpence.WeChat.OfficialAccount.Material;
+using Sixpence.WeChat.OfficialAccount.Model;
+using System;
 
 namespace Sixpence.WeChat.OfficialAccount.Job
 {
