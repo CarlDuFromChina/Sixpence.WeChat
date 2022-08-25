@@ -20,7 +20,6 @@
     <Content Remove="version\3.0\**" />
     <EmbeddedResource Remove="version\3.0\**" />
     <None Remove="version\3.0\**" />
-    <None Remove="WeChatReply\Focus\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,7 +44,6 @@
     <None Remove="version\1.0\2022062008-quartz.sql" />
     <None Remove="version\2.2\2021072101-新增链接菜单.sql" />
     <None Remove="version\3.0\" />
-    <None Remove="WeChatApi\" />
     <None Remove="Sixpence.Web" />
   </ItemGroup>
 
@@ -78,16 +76,25 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
-    <PackageReference Include="Sixpence.Web" Version="1.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="WeChatApi\" />
-    <Folder Include="WeChatReply\Focus\" />
-  </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sixpence.MiniProgram\Sixpence.MiniProgram.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Sixpence.OfficialAccount\Sixpence.OfficialAccount.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Sixpence.MiniProgram\Sixpence.WeChat.MiniProgram.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Sixpence.OfficialAccount\Sixpence.WeChat.OfficialAccount.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Config\" />
+    <None Remove="Sixpence.Web" />
+    <None Remove="Model\" />
+    <None Remove="version\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Model\" />
+    <Folder Include="version\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Sixpence.Web" Version="1.0.0" />
+  </ItemGroup>
+</Project>

@@ -8,7 +8,7 @@ function resolve(dir) {
 var isProd = process.env.NODE_ENV === 'production';
 const cdn = {
   css: [
-    'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/antd/1.7.0/antd.min.css'
+    'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/ant-design-vue/1.7.8/antd.min.css',
   ],
   js: [
     'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/moment.js/2.29.1/moment.min.js',
@@ -19,7 +19,7 @@ const cdn = {
     'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.min.js',
     'https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue-router/3.5.3/vue-router.min.js',
     'https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vuex/3.6.2/vuex.min.js',
-    'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/antd/1.7.0/antd.min.js',
+    'https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/ant-design-vue/1.7.8/antd.min.js',
     'https://cdn.jsdelivr.net/npm/mavon-editor@2.10.4/dist/mavon-editor.min.js',
   ],
   externals: {
