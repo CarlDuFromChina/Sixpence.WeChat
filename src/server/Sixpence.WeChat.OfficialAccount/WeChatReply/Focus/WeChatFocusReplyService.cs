@@ -47,7 +47,7 @@ namespace Sixpence.WeChat.OfficialAccount.WeChatReply.Focus
             if (!string.IsNullOrEmpty(message.EventName) && message.EventName.Trim() == "subscribe")
             {
                 var reply = this.GetReplyMessage();
-                new WeChatUserService().SaveData(message.FromUserName);
+                new FocusUserService().SaveData(message.FromUserName);
                 return string.Format(WeChatMessageTemplate.Text, message.FromUserName, message.ToUserName, DateTime.Now.Ticks, reply);
             }
             return "";

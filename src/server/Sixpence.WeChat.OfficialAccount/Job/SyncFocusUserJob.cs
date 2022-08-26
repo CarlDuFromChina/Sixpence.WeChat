@@ -22,7 +22,7 @@ namespace Sixpence.WeChat.OfficialAccount.Job
             Logger.Debug("开始同步微信公众号关注用户");
             Manager.ExecuteTransaction(() =>
             {
-                var service = new WeChatUserService(Manager);
+                var service = new FocusUserService(Manager);
                 var list = service.GetFocusUserList();
                 if (list.count > 0)
                 {

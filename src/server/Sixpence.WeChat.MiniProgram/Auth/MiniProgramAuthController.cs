@@ -4,17 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Sixpence.WeChat.MiniProgram.Model;
 using Sixpence.Web.WebApi;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Sixpence.WeChat.MiniProgram.Auth
 {
     public class MiniProgramAuthController : BaseApiController
     {
-        [HttpGet("login")]
-        public async Task<LoginResponseModel> Login(string code)
-        {
-            return await new AuthService().Login(code);
-        }
-
         [HttpGet("openid")]
         public async Task<OpenIdResponse> GetOpenId(string code)
         {

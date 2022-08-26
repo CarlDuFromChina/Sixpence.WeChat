@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Sixpence.WeChat.MiniProgram;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace Sixpence.WeChat
         public override void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHttpContextAccessor accessor)
         {
             base.Configure(app, env, accessor);
+            app.UseMiniProgramRole();
 
 #if DEBUG
             app.UseSwagger();

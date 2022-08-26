@@ -11,12 +11,12 @@ using Sixpence.Common;
 
 namespace Sixpence.WeChat.OfficialAccount.FocusUser
 {
-    public class WeChatUserService : EntityService<wechat_user>
+    public class FocusUserService : EntityService<focus_user>
     {
         #region 构造函数
-        public WeChatUserService() : base() { }
+        public FocusUserService() : base() { }
        
-        public WeChatUserService(IEntityManager manager) : base(manager) { }
+        public FocusUserService(IEntityManager manager) : base(manager) { }
         #endregion
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Sixpence.WeChat.OfficialAccount.FocusUser
         public void SaveData(string openid)
         {
             var focusUser = GetFocusUser(openid);
-            wechat_user user = new wechat_user()
+            focus_user user = new focus_user()
             {
                 id = focusUser.openid,
                 subscribe = focusUser.subscribe,

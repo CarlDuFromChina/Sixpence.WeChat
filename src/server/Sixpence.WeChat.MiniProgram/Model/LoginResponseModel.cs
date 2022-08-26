@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using Sixpence.WeChat.Common.Model;
 
 namespace Sixpence.WeChat.MiniProgram.Model
@@ -23,6 +24,13 @@ namespace Sixpence.WeChat.MiniProgram.Model
         /// 用户在开放平台的唯一标识符，若当前小程序已绑定到微信开放平台帐号下会返回
         /// </summary>
         public string unionid { get; set; }
+
+        /// <summary>
+        /// token
+        /// </summary>
+        [JsonIgnore]
+        [DataMember]
+        public string token { get; set; }
     }
 }
 
