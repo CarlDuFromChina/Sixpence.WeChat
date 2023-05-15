@@ -7,7 +7,7 @@
 | Repo                                                         | language   | Main Framework | Version | Desc     |
 | ------------------------------------------------------------ | ---------- | -------------- | ------- | -------- |
 | [Sixpence.WeChat.UI](https://github.com/CarlDuFromChina/Sixpence.WeChat.UI) | JavaScript | vue 2          | 1.0.0   | 前端项目 |
-| [Sixpence.WeChat.Server](https://github.com/CarlDuFromChina/Sixpence.WeChat.Server) | C#         | .net core 3.1  | 1.1.0   | 后端项目 |
+| [Sixpence.WeChat.Server](https://github.com/CarlDuFromChina/Sixpence.WeChat.Server) | C#         | .net6  | 1.1.0   | 后端项目 |
 
 ## 功能
 
